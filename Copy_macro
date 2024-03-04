@@ -6,25 +6,25 @@ Sub CopyDataFromWorkbookA()
     Dim lastColumn As Long
     Dim filePath As String
 
-
-    filePath = "" 
-
+    ' Set the file path of Workbook A
+    filePath = "C:\Users\Ben\OneDrive\Documents\Financial Maths Masters\data import.xlsx" ' Change this to the path of your Workbook A
+    
     ' Disable screen updating and alerts to make the macro run faster and without interruptions
     Application.ScreenUpdating = False
     Application.DisplayAlerts = False
     
-    ' Open Data import sheet
+    ' Open Workbook A
     Set sourceWorkbook = Workbooks.Open(filePath)
-
-    'target import
+    
+    ' Reference Workbook B (this workbook) and the target sheet (Data)
     Set targetWorkbook = ThisWorkbook
     Set targetSheet = targetWorkbook.Sheets("Data")
     
-
+    ' Clear existing content in the Data sheet of Workbook B
     targetSheet.Cells.Clear
     
-    ' Find last row and column, copy+paste data
-    With sourceWorkbook.Sheets(1)
+    ' Find the last row and column in the "Raw" sheet to be copied, and then copy & paste the data
+    With sourceWorkbook.Sheets("Raw") ' Directly referencing the "Raw" sheet by name
         lastRow = .Cells(.Rows.Count, "A").End(xlUp).Row
         lastColumn = .Cells(1, .Columns.Count).End(xlToLeft).Column
         
@@ -39,6 +39,7 @@ Sub CopyDataFromWorkbookA()
     Application.ScreenUpdating = True
     Application.DisplayAlerts = True
     
-    MsgBox "Data copied successfully!", vbInformation
+    MsgBox "Data copied successfully from 'Raw'!", vbInformation
 End Sub
+
 
